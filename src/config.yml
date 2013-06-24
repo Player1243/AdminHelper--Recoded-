@@ -1,0 +1,20 @@
+opt-out: true
+chat.function.anticaps.enabled: true
+chat.function.anticaps.total: 51
+chat.function.antispam.enabled: true
+chat.function.antiseven.enabled: true
+chat.function.antiadvertising.enabled: true
+chat.function.antiadvertising.extreme-mod: false
+chat.function.antiadvertising.warning-message: true
+messages.noPermissions: '&4Sry, you do not have enough permission to use this command.'
+messages.consoleName: '&2Server'
+messages.globalmute.disabled: '&6GlobalMute is now disabled.'
+messages.globalmute.enabled: '&6GlobalMute is now enabled.'
+messages.globalmute.active: '&4A global mute is in progress.'
+messages.clearchat.public.message: '&6Chat cleared by &2%sender%.'
+messages.clearchat.private.message: '&6You have cleared your own chat.'
+messages.giveall.message: '&8 Ey, &2%player% &8you just &6%amount% &8once the item &6%item% &8received.' 
+messages.functions.noSpam: '&4Please do not spam.'
+messages.functions.noSeven: '&4Try it with &3/'
+messages.functions.noCaps: '&4Please use small font for your messages.'
+messages.functions.noAdvertising: '&4Nice try bro ;)'

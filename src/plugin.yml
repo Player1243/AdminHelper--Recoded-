@@ -1,0 +1,44 @@
+name: AdminHelper
+version: 2.0
+author: Yonas, Matze_Style
+description: Help to administrate your server
+main: de.YonasCode.AdminHelper.Main
+
+commands:
+     adminhelper:
+          description: Need help?
+          usage: /<command> [help] [page]
+          default: op
+          aliases: [adminhelper, ah]
+     clearchat:
+          description: Cleared the Chat.
+          usage: /<command>
+          default: op
+          aliases: [clearchat, cc]
+     globalmute:
+          description: Muted all Online Players.
+          usage: /<command>
+          default: op
+          aliases: [globalmute, /gm]
+     giveall:
+          description: Give all Online Players Items.
+          usage: /<command> <item> <amount>
+          default: op
+          aliases: [giveall, ga]
+     ram:
+          description: Displayed Server Informations.
+          usage: /<command>
+          default: op
+     pcc:
+          description: Cleared your personal chat.
+          usage: /<command>
+          default: op
+     gamemodeall:
+          description: Changed the gamemode.
+          usage: /<command> <gamemode>
+          default: op
+          aliases: [gamemodeall, gma]
+     kickall:
+          description: Kicked all online players
+          usage: /<command> <reason>
+          default: op
