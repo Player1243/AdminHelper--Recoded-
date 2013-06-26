@@ -147,7 +147,7 @@ public class ChatListener implements Listener {
 					if((success) && (Booleans.ANTIADVERTISINGMESSAGE)) {
 						for(Player p : Bukkit.getOnlinePlayers()) {
 							if(p.hasPermission(Permission.ANTIADVERTISING_MESSAGE))
-								p.sendMessage(Message.TAG + ChatColor.DARK_RED + "The player " + ChatColor.GOLD + event.getPlayer().getName() + ChatColor.DARK_RED + " tried to send an link or server-ip. Detected-List: " + ChatColor.GOLD + detectedwords.toString());
+								p.sendMessage(Message.TAG + ChatColor.DARK_RED + "The player " + ChatColor.GOLD + event.getPlayer().getName() + ChatColor.DARK_RED + " tried to send a link or server-ip. Detected-List: " + ChatColor.GOLD + detectedwords.toString());
 						}
 					}
 				}

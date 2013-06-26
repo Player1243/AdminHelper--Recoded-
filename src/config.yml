@@ -1,4 +1,4 @@
-opt-out: true
+enabled-update-alert: true
 chat.function.anticaps.enabled: true
 chat.function.anticaps.total: 51
 chat.function.antispam.enabled: true
