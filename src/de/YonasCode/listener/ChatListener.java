@@ -36,6 +36,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import de.YonasCode.AdminHelper.Booleans;
 import de.YonasCode.AdminHelper.Integers;
@@ -116,6 +117,47 @@ public class ChatListener implements Listener {
 	
 	@EventHandler
 	public void onAdvertising(AsyncPlayerChatEvent event) {
+		if(Booleans.ANTIADVERTISING) {
+			if(!(event.getPlayer().hasPermission(Permission.ANTIADVERTISING_IGNORE))) {
+				if(Booleans.ANTIADVERTISINGEXTREME) {
+					if(Main.ANTISPAM.check(event.getMessage().replaceAll(" ", ""))) {
+						event.getPlayer().sendMessage(Message.ANTIADVERTISING);
+						if(Booleans.ANTIADVERTISING) {
+							for(Player p : Bukkit.getOnlinePlayers()) {
+								if(p.hasPermission(Permission.ANTIADVERTISING_MESSAGE))
+									p.sendMessage(Message.TAG + ChatColor.DARK_RED + "The player " + ChatColor.GOLD + event.getPlayer().getName() + ChatColor.DARK_RED + " tried to send an link or server-ip. Sended-Message: " + ChatColor.GOLD + event.getMessage());
+							}
+						}
+						event.setCancelled(true);
+					}
+				} else {
+					boolean success = false;
+					ArrayList<String> detectedwords = new ArrayList<String>();
+					for(String w : event.getMessage().split(" ")) {
+						if(Main.ANTISPAM.check(w)) {
+							detectedwords.add(w);
+							success = true;
+							StringBuilder newword = new StringBuilder();
+							char[] charedword = w.toCharArray();
+							for(int i = 0; i < charedword.length; i++) {
+								newword.append(ChatColor.BOLD + "" + ChatColor.DARK_RED + "*");
+							}
+							event.setMessage(event.getMessage().replaceAll(w, newword.toString() + ChatColor.RESET));
+						}
+					}
+					if((success) && (Booleans.ANTIADVERTISINGMESSAGE)) {
+						for(Player p : Bukkit.getOnlinePlayers()) {
+							if(p.hasPermission(Permission.ANTIADVERTISING_MESSAGE))
+								p.sendMessage(Message.TAG + ChatColor.DARK_RED + "The player " + ChatColor.GOLD + event.getPlayer().getName() + ChatColor.DARK_RED + " tried to send a link or server-ip. Detected-List: " + ChatColor.GOLD + detectedwords.toString());
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onAdverisingCommand(PlayerCommandPreprocessEvent event) {
 		if(Booleans.ANTIADVERTISING) {
 			if(!(event.getPlayer().hasPermission(Permission.ANTIADVERTISING_IGNORE))) {
 				if(Booleans.ANTIADVERTISINGEXTREME) {

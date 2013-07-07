@@ -31,7 +31,7 @@ import org.bukkit.ChatColor;
 
 public class Message {
 
-	public static String TAG = ChatColor.GOLD + "[" + ChatColor.AQUA + "AdminHelper" + ChatColor.GOLD + "] ";
+	public static String TAG = ChatColor.GOLD + "[" + ChatColor.AQUA + "AdminHelper" + ChatColor.GOLD + "]";
 	public static String NO_PERMISSIONS = replaceColor(Main.CONFIG.getString("messages.noPermissions"));
 	public static String MOREARGUMENTS = ChatColor.RED + "Please enter more arguments to use the command.";
 	public static String CONSOLE_NAME = replaceColor(Main.CONFIG.getString("messages.consoleName"));

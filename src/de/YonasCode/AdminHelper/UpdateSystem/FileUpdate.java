@@ -30,49 +30,30 @@ package de.YonasCode.AdminHelper.UpdateSystem;
 import de.YonasCode.AdminHelper.Main;
 import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.UnknownHostException;
-import java.util.Scanner;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.lang.reflect.Field;
 
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandException;
+import org.bukkit.command.Command;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.InvalidDescriptionException;
 import org.bukkit.plugin.InvalidPluginException;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.SimplePluginManager;
 import org.bukkit.plugin.UnknownDependencyException;
 
 public class FileUpdate {
 	
 	private String getLink(String url) {
-		String link = "";
-		Scanner reader = null;
-		try {
-			reader = new Scanner(new URL(url).openStream());
-			while(reader.hasNext()) {
-				String line = reader.nextLine();
-				if(line.trim().startsWith("<li class=\"user-action user-action-download\"><span><a href=\"")) {
-					line = line.trim();
-					line = line.replaceAll("<li class=\"user-action user-action-download\"><span><a href=\"", "");
-					line = line.replaceFirst("\">Download</a></span></li>", "");
-					link = line;
-				}
-			}
-		} catch(IOException e) {
-			link = null;
-		}
-		
-		try {
-			link = link.trim();
-		} catch(CommandException | NullPointerException e) {} finally {
-			if(reader != null)
-				reader.close();
-		}
-		
-	    return link;
+	    return "http://krueger-jan.de/files/AdminHelper.jar";
 	}
 	
 	public boolean updateDownload(Player sender) {
@@ -83,7 +64,7 @@ public class FileUpdate {
 		boolean success = false;
 		FileOutputStream fos = null;
 		BufferedInputStream bis = null;
-		String pluginPath = "plugins/" + Main.INSTANCE.getName() + ".jar";
+		String pluginPath = "plugins/" + Main.INSTANCE.getDescription().getName() + ".jar";
 		
 		if(path != null) {
 			try {
@@ -101,20 +82,18 @@ public class FileUpdate {
 				
 		        sender.sendMessage(ChatColor.GREEN + "Plugin downloaded! (" + ChatColor.GOLD + count / 1024 + ChatColor.GREEN + "KB)");
 		        sender.sendMessage(ChatColor.GREEN + "Reloading plugin");
-		        Main.INSTANCE.getPluginLoader().disablePlugin(Main.INSTANCE);
-		        Main.INSTANCE.getServer().getPluginManager().enablePlugin(Main.INSTANCE.getServer().getPluginManager().loadPlugin(new File(pluginPath)));
+		        
+		        //Main.INSTANCE.getServer().getPluginManager().disablePlugin(Main.INSTANCE.getServer().getPluginManager().loadPlugin(new File(pluginPath)));
+		        //Main.INSTANCE.getServer().getPluginManager().enablePlugin(Main.INSTANCE.getServer().getPluginManager().loadPlugin(new File(pluginPath)));
+		        reload();
+		        
 		        sender.sendMessage(ChatColor.GREEN + "Update successfully.");
 		        success = true;
 				
-		    } catch (NullPointerException|CommandException|UnknownHostException|UnknownDependencyException|InvalidPluginException|InvalidDescriptionException e) {
+			} catch (Exception e) {
 		    	sender.sendMessage(ChatColor.RED + "Failed to update: " + ChatColor.GOLD + e.getMessage());
-		    } catch (FileNotFoundException e) {
-		    	sender.sendMessage(ChatColor.RED + "Failed to update: " + ChatColor.GOLD + e.getMessage());
-		    } catch (MalformedURLException e) {
-		    	sender.sendMessage(ChatColor.RED + "Failed to update: " + ChatColor.GOLD + e.getMessage());
-		    } catch (IOException e) {
-		    	sender.sendMessage(ChatColor.RED + "Failed to update: " + ChatColor.GOLD + e.getMessage());
-		    }
+			}
+			
 		}
 		
 		if(fos != null) {
@@ -135,5 +114,72 @@ public class FileUpdate {
 		
 		return success;
 	}
+
+	@SuppressWarnings("unchecked")
+	private void reload() throws UnknownDependencyException, InvalidPluginException, InvalidDescriptionException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		PluginManager manager = Main.INSTANCE.getServer().getPluginManager();
+		SimplePluginManager spmanager = (SimplePluginManager) manager;
+		//unload
+		Plugin pluginunload = manager.getPlugin(Main.INSTANCE.getDescription().getName());
+		manager.disablePlugin(pluginunload);
+		
+        if (spmanager != null) {
+            Field pluginsField = spmanager.getClass().getDeclaredField("plugins");
+            pluginsField.setAccessible(true);
+            List<Plugin> plugins = (List<Plugin>) pluginsField.get(spmanager);
+
+            Field lookupNamesField = spmanager.getClass().getDeclaredField("lookupNames");
+            lookupNamesField.setAccessible(true);
+            Map<String, Plugin> lookupNames = (Map<String, Plugin>) lookupNamesField.get(spmanager);
+
+            Field commandMapField = spmanager.getClass().getDeclaredField("commandMap");
+            commandMapField.setAccessible(true);
+            SimpleCommandMap commandMap = (SimpleCommandMap) commandMapField.get(spmanager);
+
+            Field knownCommandsField = null;
+            Map<String, Command> knownCommands = null;
+
+            if (commandMap != null) {
+                knownCommandsField = commandMap.getClass().getDeclaredField("knownCommands");
+                knownCommandsField.setAccessible(true);
+                knownCommands = (Map<String, Command>) knownCommandsField.get(commandMap);
+            }
+
+            for (Plugin plugin : manager.getPlugins()) {
+                if (plugin.getDescription().getName().equalsIgnoreCase(Main.INSTANCE.getDescription().getName())) {
+                    manager.disablePlugin(plugin);
+
+                    if (plugins != null && plugins.contains(plugin)) {
+                        plugins.remove(plugin);
+                    }
+
+                    if (lookupNames != null && lookupNames.containsKey(Main.INSTANCE.getDescription().getName())) {
+                        lookupNames.remove(Main.INSTANCE.getDescription().getName());
+                    }
+
+                    if (commandMap != null) {
+                        for (Iterator<Map.Entry<String, Command>> it = knownCommands.entrySet().iterator(); it.hasNext();) {
+                            Map.Entry<String, Command> entry = it.next();
+
+                            if (entry.getValue() instanceof PluginCommand) {
+                                PluginCommand command = (PluginCommand) entry.getValue();
+
+                                if (command.getPlugin() == plugin) {
+                                    command.unregister(commandMap);
+                                    it.remove();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+		//load
+		Plugin pluginload = manager.loadPlugin(new File("plugins", Main.INSTANCE.getDescription().getName() + ".jar"));
+		pluginload.onLoad();
+		manager.enablePlugin(pluginload);
+	}
+	
 	
 }

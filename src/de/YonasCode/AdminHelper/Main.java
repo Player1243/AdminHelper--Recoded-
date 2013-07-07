@@ -31,6 +31,7 @@ import de.YonasCode.AdminHelper.API.AdminHelperAntiSpamAPI;
 import de.YonasCode.AdminHelper.UpdateSystem.FileUpdate;
 import de.YonasCode.AdminHelper.UpdateSystem.UpdateAlert;
 import java.util.logging.Logger;
+
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -54,7 +55,7 @@ public class Main extends JavaPlugin {
 		ANTISPAM					= new AdminHelperAntiSpamAPI();
 		
 		if(Booleans.OPT_OUT) {
-		      UPDATEALERT = new UpdateAlert("http://dev.bukkit.org/server-mods/adminhelper/files.rss");
+		      UPDATEALERT = new UpdateAlert("http://krueger-jan.de/category/adminhelper/feed/");
 		      UPDATEALERT.updateInformations();
 		      FILEUPDATE = new FileUpdate();
 		      
@@ -67,6 +68,11 @@ public class Main extends JavaPlugin {
 	    ADMINHELPER.loadCommands();
 	    ADMINHELPER.loadListeners();
 	    ADMINHELPER.loadMetrics();
+	}
+	
+	@Override
+	public void onDisable() {
+		
 	}
 	
 }

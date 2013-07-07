@@ -27,6 +27,7 @@
 */
 package de.YonasCode.executor;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -46,13 +47,29 @@ public class CommandAdminHelper implements CommandExecutor {
 			Player pl = (Player)sender;
 			if(cmd.getName().equalsIgnoreCase("adminhelper")) {
 				if(args.length == 0) {
+					ChatColor version = ChatColor.GREEN;
+					
+					if(Booleans.OPT_OUT)
+						Main.UPDATEALERT.updateInformations();
+					
+					if(Booleans.OPT_OUT) 
+						if(Main.UPDATEALERT.updateNeeded())
+							version = ChatColor.RED;
+					
 					pl.sendMessage(ChatColor.GOLD + "---" + Message.TAG + "---");
 					pl.sendMessage(ChatColor.AQUA + "Developer: " + ChatColor.GOLD + Main.INSTANCE.getDescription().getAuthors());
-					pl.sendMessage(ChatColor.AQUA + "Version: " + ChatColor.GOLD + Main.INSTANCE.getDescription().getVersion());
-					pl.sendMessage(ChatColor.AQUA + "Download: " + ChatColor.STRIKETHROUGH + ChatColor.GOLD + "http://dev.bukkit.org/server-mods/adminhelper");
+					pl.sendMessage(ChatColor.AQUA + "Installed Version: " + version + Main.INSTANCE.getDescription().getVersion());
+					pl.sendMessage(ChatColor.AQUA + "Download: " + ChatColor.STRIKETHROUGH + ChatColor.GOLD + "http://krueger-jan.de/plugins/adminhelper/");
 				
+					if(Booleans.OPT_OUT) {
+						pl.sendMessage(ChatColor.AQUA + "Change-Log: " + ChatColor.GOLD + Main.UPDATEALERT.getVersion() + ChatColor.GREEN + " (latest version)");
+						for(String s : Main.UPDATEALERT.getChangelog()) {
+							if(s != null)
+								Bukkit.broadcastMessage(s.replaceAll("\\+", ChatColor.GREEN + "+" + ChatColor.GOLD).replaceAll("\\-", ChatColor.RED + "-" + ChatColor.GOLD) + ChatColor.GOLD);
+						}
+					}
+					
 					if((Booleans.OPT_OUT) && (pl.hasPermission(Permission.ADMINHELPER_UPDATE))) {
-						Main.UPDATEALERT.updateInformations();
 						if(Main.UPDATEALERT.updateNeeded()) {
 							pl.sendMessage(ChatColor.AQUA + "Update: " + ChatColor.RED + "The new version " + ChatColor.GOLD + Main.UPDATEALERT.getVersion() + ChatColor.RED + " is now available on " + ChatColor.GOLD + Main.UPDATEALERT.getLink() + ChatColor.RED + ".");
 							pl.sendMessage(ChatColor.GOLD + "If you want to update the plugin follow the instructions.");
@@ -79,17 +96,6 @@ public class CommandAdminHelper implements CommandExecutor {
 							} else {
 								 pl.sendMessage(Message.TAG + ChatColor.RED + "Please set " + ChatColor.GOLD + "\"opt-out\"" + ChatColor.RED + " to " + ChatColor.GOLD + "true" + ChatColor.RED + ".");
 							}
-						} else {
-							pl.sendMessage(Message.NO_PERMISSIONS);
-						}
-					}
-					
-					if(args[0].equalsIgnoreCase("reload")) {
-						if(pl.hasPermission(Permission.ADMINHELPER_RELOAD)) {
-							Main.INSTANCE.reloadConfig();
-							Main.INSTANCE.getPluginLoader().disablePlugin(Main.INSTANCE);
-							Main.INSTANCE.getPluginLoader().enablePlugin(Main.INSTANCE);
-							pl.sendMessage(ChatColor.GREEN + "The plugin was successfully reloaded.");
 						} else {
 							pl.sendMessage(Message.NO_PERMISSIONS);
 						}
@@ -130,21 +136,35 @@ public class CommandAdminHelper implements CommandExecutor {
 		} else {
 			if(cmd.getName().equalsIgnoreCase("adminhelper")) {
 				if(args.length == 0) {
+					ChatColor version = ChatColor.GREEN;
+					
+					if(Booleans.OPT_OUT)
+						Main.UPDATEALERT.updateInformations();
+					
+					if(Booleans.OPT_OUT) 
+						if(Main.UPDATEALERT.updateNeeded())
+							version = ChatColor.RED;
+					
 					Main.LOG.info(ChatColor.GOLD + "---" + Message.TAG + "---");
 					Main.LOG.info(ChatColor.AQUA + "Developer: " + ChatColor.GOLD + Main.INSTANCE.getDescription().getAuthors());
-					Main.LOG.info(ChatColor.AQUA + "Version: " + ChatColor.GOLD + Main.INSTANCE.getDescription().getVersion());
-					Main.LOG.info(ChatColor.AQUA + "Download: " + ChatColor.STRIKETHROUGH + ChatColor.GOLD + "http://dev.bukkit.org/server-mods/adminhelper");
+					Main.LOG.info(ChatColor.AQUA + "Installed Version: " + version + Main.INSTANCE.getDescription().getVersion());
+					Main.LOG.info(ChatColor.AQUA + "Download: " + ChatColor.STRIKETHROUGH + ChatColor.GOLD + "http://krueger-jan.de/plugins/adminhelper/");
 				
 					if(Booleans.OPT_OUT) {
-						Main.UPDATEALERT.updateInformations();
-						if(Main.UPDATEALERT.updateNeeded()) {
-							Main.LOG.info(ChatColor.AQUA + "Update: " + ChatColor.RED + "The new version " + ChatColor.GOLD + Main.UPDATEALERT.getVersion() + ChatColor.RED + " is now available on " + ChatColor.GOLD + Main.UPDATEALERT.getLink() + ChatColor.RED + ".");
-							Main.LOG.info(ChatColor.GOLD + "If you want to update the plugin follow the instructions.");
-							Main.LOG.info(ChatColor.GOLD + "1)" + ChatColor.GREEN + "Type:  /adminhelper update");
-							Main.LOG.info(ChatColor.GOLD + "2)" + ChatColor.GREEN + "Ready to use it. I hope it was very easy ;) .");
-						} else {
-							Main.LOG.info(ChatColor.AQUA + "Update: " + ChatColor.GREEN + "All is good, no update available.");
+						Main.LOG.info(ChatColor.AQUA + "Change-Log: " + ChatColor.GOLD + Main.UPDATEALERT.getVersion() + ChatColor.GREEN + " (latest version)");
+						for(String s : Main.UPDATEALERT.getChangelog()) {
+							if(s != null)
+								Bukkit.broadcastMessage(s.replaceAll("\\+", ChatColor.GREEN + "+" + ChatColor.GOLD).replaceAll("\\-", ChatColor.RED + "-" + ChatColor.GOLD) + ChatColor.GOLD);
 						}
+					}
+					
+					if(Main.UPDATEALERT.updateNeeded()) {
+						Main.LOG.info(ChatColor.AQUA + "Update: " + ChatColor.RED + "The new version " + ChatColor.GOLD + Main.UPDATEALERT.getVersion() + ChatColor.RED + " is now available on " + ChatColor.GOLD + Main.UPDATEALERT.getLink() + ChatColor.RED + ".");
+						Main.LOG.info(ChatColor.GOLD + "If you want to update the plugin follow the instructions.");
+						Main.LOG.info(ChatColor.GOLD + "1)" + ChatColor.GREEN + "Type:  /adminhelper update");
+						Main.LOG.info(ChatColor.GOLD + "2)" + ChatColor.GREEN + "Ready to use it. I hope it was very easy ;) .");
+					} else {
+						Main.LOG.info(ChatColor.AQUA + "Update: " + ChatColor.GREEN + "All is good, no update available.");
 					}
 					
 				} else if(args.length == 1) {
@@ -160,13 +180,6 @@ public class CommandAdminHelper implements CommandExecutor {
 						} else {
 							Main.LOG.info(Message.TAG + ChatColor.RED + "Please set " + ChatColor.GOLD + "\"opt-out\"" + ChatColor.RED + " to " + ChatColor.GOLD + "true" + ChatColor.RED + ".");
 						}
-					}
-					
-					if(args[0].equalsIgnoreCase("reload")) {
-						Main.INSTANCE.reloadConfig();
-						Main.INSTANCE.getPluginLoader().disablePlugin(Main.INSTANCE);
-						Main.INSTANCE.getPluginLoader().enablePlugin(Main.INSTANCE);
-						Main.LOG.info(ChatColor.GREEN + "The plugin was successfully reloaded.");
 					}
 					
 				} else if(args.length >= 2) {

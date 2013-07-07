@@ -34,6 +34,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -42,8 +43,10 @@ import org.xml.sax.SAXException;
 public class UpdateAlert {
 	
 	private URL filesFeed;
+	private NodeList children;
 	private String version;
 	private String link;
+	private String[] changelog = {""};
 	private boolean needUpdate = false;
 	
 	public UpdateAlert(String url) {
@@ -57,22 +60,30 @@ public class UpdateAlert {
 	public void updateInformations() {
 		boolean ret = true;
 		try {
+			//Version and link
 			InputStream input = this.filesFeed.openConnection().getInputStream();
 			Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(input);
 			
 			Node latestFile = document.getElementsByTagName("item").item(0);
-			NodeList children = latestFile.getChildNodes();
+			this.children = latestFile.getChildNodes();
 			
 			this.version = children.item(1).getTextContent().replaceAll("[a-zA-Z]", "");
 			this.link = children.item(3).getTextContent();
 			
 			ret = !(this.version.replaceAll(" ", "").equals(Main.INSTANCE.getDescription().getVersion().replaceAll(" ", "")));
 			
+			//changelog
+			String cg = children.item(17).getTextContent().replaceAll("(\r\n|\n)", "").replaceAll("<br/>", "<br />").replaceAll("<br />", "<br />").replaceAll("<br>", "<br />").replaceAll("<p>", "").replaceAll("</p>", "");
+			this.changelog = cg.split("<br />");
 			
 		} catch(SAXException|ParserConfigurationException|IOException e) {
 			Main.LOG.warning(e.toString());
 		}
 		this.needUpdate = ret;
+	}
+	
+	public String[] getChangelog() {
+		return this.changelog;
 	}
 	
 	public boolean updateNeeded() {

@@ -66,7 +66,7 @@ public class CommandGiveall implements CommandExecutor {
 								ItemStack itemstack = new ItemStack(Integer.valueOf(args[0]), Integer.valueOf(args[1]));
 								for(Player p : Bukkit.getOnlinePlayers()) {
 									p.getInventory().addItem(itemstack);
-									p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", args[0])); 
+									p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", itemstack.getType().toString())); 
 								}
 							}
 						}
@@ -102,7 +102,7 @@ public class CommandGiveall implements CommandExecutor {
 							ItemStack itemstack = new ItemStack(Integer.valueOf(args[0]), Integer.valueOf(args[1]));
 							for(Player p : Bukkit.getOnlinePlayers()) {
 								p.getInventory().addItem(itemstack);
-								p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", args[0])); 
+								p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", itemstack.getItemMeta().getDisplayName())); 
 							}
 						}
 						Main.LOG.info("Command successfully used.");
