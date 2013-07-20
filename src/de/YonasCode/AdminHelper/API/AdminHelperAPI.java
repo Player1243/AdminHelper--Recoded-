@@ -27,12 +27,19 @@
 */
 package de.YonasCode.AdminHelper.API;
 
+/**
+ * 
+ * @author Jan Krüger
+ * 
+ */
+
 import java.util.List;
 
 import de.YonasCode.AdminHelper.Main;
 
-public class AdminHelperAPI {
 
+public class AdminHelperAPI {
+	
 	private Variables v = new Variables();
 
 	public AdminHelperFireWork FireworkAPI = new AdminHelperFireWork();

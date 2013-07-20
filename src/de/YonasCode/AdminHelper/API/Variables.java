@@ -27,6 +27,12 @@
 */
 package de.YonasCode.AdminHelper.API;
 
+/**
+ * 
+ * @author Jan Krüger
+ * 
+ */
+
 import de.YonasCode.AdminHelper.Booleans;
 import de.YonasCode.AdminHelper.Integers;
 import de.YonasCode.AdminHelper.Main;

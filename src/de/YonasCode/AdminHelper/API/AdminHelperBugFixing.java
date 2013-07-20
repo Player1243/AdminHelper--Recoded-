@@ -27,6 +27,12 @@
 */
 package de.YonasCode.AdminHelper.API;
 
+/**
+ * 
+ * @author Jan Krüger
+ * 
+ */
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

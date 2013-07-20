@@ -27,6 +27,12 @@
 */
 package de.YonasCode.AdminHelper.API;
 
+/**
+ * 
+ * @author Jan Krüger
+ * 
+ */
+
 import java.util.Random;
 
 import org.bukkit.Bukkit;

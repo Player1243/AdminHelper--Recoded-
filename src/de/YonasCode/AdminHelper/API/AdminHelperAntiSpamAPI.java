@@ -27,6 +27,12 @@
 */
 package de.YonasCode.AdminHelper.API;
 
+/**
+ * 
+ * @author Jan Krüger
+ * 
+ */
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
