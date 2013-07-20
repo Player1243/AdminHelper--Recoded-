@@ -27,16 +27,20 @@
 */
 package de.YonasCode.listener;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.SimplePluginManager;
 
 import de.YonasCode.AdminHelper.Booleans;
 import de.YonasCode.AdminHelper.Integers;
@@ -62,7 +66,8 @@ public class ChatListener implements Listener {
 	public void onAntiSeven(AsyncPlayerChatEvent event) {
 		if(Booleans.ANTISEVEN) {
 			if(event.getMessage().startsWith("7")) {
-				if(!(event.getPlayer().hasPermission(Permission.ANTIADVERTISING_IGNORE))) {
+				String[] message = event.getMessage().split(" ");
+				if(isCommand(message[0].replace("7", "")) && !(event.getPlayer().hasPermission(Permission.ANTIADVERTISING_IGNORE))) { 
 					event.getPlayer().sendMessage(Message.ANTISEVEN);
 					event.setCancelled(true);
 				}
@@ -196,5 +201,18 @@ public class ChatListener implements Listener {
 			}
 		}
 	}
-
+	
+	
+	//methoden
+	public boolean isCommand(String command)  {
+		PluginManager manager = Main.INSTANCE.getServer().getPluginManager();
+		SimplePluginManager spmanager = (SimplePluginManager) manager;
+		SimpleCommandMap commandMap = null;
+		try {
+			Field commandMapField = spmanager.getClass().getDeclaredField("commandMap");
+			commandMapField.setAccessible(true);
+			commandMap = (SimpleCommandMap) commandMapField.get(spmanager);
+		} catch(Exception e){}
+		return commandMap.getCommand(command) != null;
+	}
 }

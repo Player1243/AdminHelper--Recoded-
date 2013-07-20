@@ -28,8 +28,11 @@
 package de.YonasCode.AdminHelper;
 
 import de.YonasCode.AdminHelper.API.AdminHelperAntiSpamAPI;
+import de.YonasCode.AdminHelper.Database.ItemDatabase;
 import de.YonasCode.AdminHelper.UpdateSystem.FileUpdate;
 import de.YonasCode.AdminHelper.UpdateSystem.UpdateAlert;
+
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -43,6 +46,7 @@ public class Main extends JavaPlugin {
 	public static AdminHelperAntiSpamAPI ANTISPAM;
 	public static FileUpdate FILEUPDATE;
 	public static FileConfiguration CONFIG;
+	public static ItemDatabase ITEMDB;
 	public static Logger LOG = Logger.getLogger("Minecraft");
 
 	public static Runtime RUNTIME = Runtime.getRuntime();
@@ -53,10 +57,11 @@ public class Main extends JavaPlugin {
 		CONFIG 						= getConfig();
 		ADMINHELPER 				= new AdminHelper();
 		ANTISPAM					= new AdminHelperAntiSpamAPI();
+		ITEMDB						= new ItemDatabase();
 		
 		if(Booleans.OPT_OUT) {
 		      UPDATEALERT = new UpdateAlert("http://krueger-jan.de/category/adminhelper/feed/");
-		      UPDATEALERT.updateInformations();
+		      UPDATEALERT.updateInformation();
 		      FILEUPDATE = new FileUpdate();
 		      
 		      if (UPDATEALERT.updateNeeded()) {
@@ -68,6 +73,11 @@ public class Main extends JavaPlugin {
 	    ADMINHELPER.loadCommands();
 	    ADMINHELPER.loadListeners();
 	    ADMINHELPER.loadMetrics();
+	    try {
+			ITEMDB.loadItemDatabase();
+		} catch (IOException e) {
+			Main.LOG.warning("Can't create the item database.");
+		}
 	}
 	
 	@Override

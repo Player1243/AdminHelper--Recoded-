@@ -42,3 +42,7 @@ commands:
           description: Kicked all online players
           usage: /<command> <reason>
           default: op
+     test:
+          description: test
+          usage: /<command>
+          default: op

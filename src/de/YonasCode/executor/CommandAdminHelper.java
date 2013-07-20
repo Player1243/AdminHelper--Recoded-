@@ -50,7 +50,7 @@ public class CommandAdminHelper implements CommandExecutor {
 					ChatColor version = ChatColor.GREEN;
 					
 					if(Booleans.OPT_OUT)
-						Main.UPDATEALERT.updateInformations();
+						Main.UPDATEALERT.updateInformation();
 					
 					if(Booleans.OPT_OUT) 
 						if(Main.UPDATEALERT.updateNeeded())
@@ -85,7 +85,7 @@ public class CommandAdminHelper implements CommandExecutor {
 					if(args[0].equalsIgnoreCase("update")) {
 						if(pl.hasPermission(Permission.ADMINHELPER_UPDATE)){
 							if(Booleans.OPT_OUT) {
-								Main.UPDATEALERT.updateInformations();
+								Main.UPDATEALERT.updateInformation();
 								if(Main.UPDATEALERT.updateNeeded()) {
 									pl.sendMessage(Message.TAG + ChatColor.GREEN + "Starting the update...");
 									Main.FILEUPDATE.updateDownload(pl);
@@ -139,7 +139,7 @@ public class CommandAdminHelper implements CommandExecutor {
 					ChatColor version = ChatColor.GREEN;
 					
 					if(Booleans.OPT_OUT)
-						Main.UPDATEALERT.updateInformations();
+						Main.UPDATEALERT.updateInformation();
 					
 					if(Booleans.OPT_OUT) 
 						if(Main.UPDATEALERT.updateNeeded())
@@ -171,7 +171,7 @@ public class CommandAdminHelper implements CommandExecutor {
 					
 					if(args[0].equalsIgnoreCase("update")) {
 						if(Booleans.OPT_OUT) {
-							Main.UPDATEALERT.updateInformations();
+							Main.UPDATEALERT.updateInformation();
 							if(Main.UPDATEALERT.updateNeeded()) {
 								Main.LOG.info(Message.TAG + ChatColor.RED + "Sorry, but this command is only for players.");
 							} else {

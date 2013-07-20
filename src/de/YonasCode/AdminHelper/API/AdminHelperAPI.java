@@ -65,8 +65,8 @@ public class AdminHelperAPI {
 	public long RAM_TOTAL = this.v.totalmemory();
 	public long PROCESSORS_AVAILABLE = this.v.availableproccessors();
 
-	public void updateUpdateInformations() {
-	    Main.UPDATEALERT.updateInformations();
+	public void updateUpdateInformation() {
+	    Main.UPDATEALERT.updateInformation();
 	}
 	
 }

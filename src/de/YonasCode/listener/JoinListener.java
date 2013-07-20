@@ -42,7 +42,7 @@ public class JoinListener implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		if(Booleans.OPT_OUT) {
-			Main.UPDATEALERT.updateInformations();
+			Main.UPDATEALERT.updateInformation();
 			if(Main.UPDATEALERT.updateNeeded()) {
 				if(event.getPlayer().hasPermission(Permission.ADMINHELPER_UPDATE)) {
 			        event.getPlayer().sendMessage(Message.TAG + ChatColor.RED + "A new version is available.");

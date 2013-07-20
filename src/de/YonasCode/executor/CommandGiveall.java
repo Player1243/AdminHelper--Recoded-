@@ -57,24 +57,41 @@ public class CommandGiveall implements CommandExecutor {
 								String[] splited = args[0].split(":");
 								String id = splited[0];
 								String meta = splited[1];
-								ItemStack itemstack = new ItemStack(Integer.valueOf(id), Integer.valueOf(args[1]), Short.parseShort(meta));
+								ItemStack itemstack = Main.ITEMDB.getItem(Integer.valueOf(id), Short.valueOf(meta), Integer.valueOf(args[1]));
+								String name = Main.ITEMDB.getName(Integer.valueOf(id), Short.valueOf(meta));
 								for(Player p : Bukkit.getOnlinePlayers()) {
 									p.getInventory().addItem(itemstack);
-									p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", args[0])); 
+									p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
 								}
 							} else {
-								ItemStack itemstack = new ItemStack(Integer.valueOf(args[0]), Integer.valueOf(args[1]));
-								for(Player p : Bukkit.getOnlinePlayers()) {
-									p.getInventory().addItem(itemstack);
-									p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", itemstack.getType().toString())); 
+								if(args[0].matches("[1-9]")) {
+									ItemStack itemstack = Main.ITEMDB.getItem(Integer.valueOf(args[0]), Integer.valueOf(args[1]));
+									String name = Main.ITEMDB.getName(Integer.valueOf(args[0]), Short.valueOf((short) 0));
+									for(Player p : Bukkit.getOnlinePlayers()) {
+										p.getInventory().addItem(itemstack);
+										p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
+									}
+								} else {
+									try {
+										ItemStack itemstack = Main.ITEMDB.getItem(args[0], Integer.valueOf(args[1]));
+										String name = args[0].toLowerCase();
+										for(Player p : Bukkit.getOnlinePlayers()) {
+											p.getInventory().addItem(itemstack);
+											p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
+										}
+									} catch(IllegalArgumentException e) {
+										pl.sendMessage(ChatColor.RED + "Unknown Item.");
+										e.printStackTrace();
+									}
 								}
 							}
 						}
 					
 					} catch(NumberFormatException e) {
 						pl.sendMessage(ChatColor.RED + "Plese use only numbers.");
-					} catch(ArrayIndexOutOfBoundsException e) {
+					} catch(ArrayIndexOutOfBoundsException | NullPointerException e) {
 						pl.sendMessage(ChatColor.RED + "Unknown Item-ID");
+						e.printStackTrace();
 					}
 				} else {
 					pl.sendMessage(Message.NO_PERMISSIONS);
@@ -93,16 +110,31 @@ public class CommandGiveall implements CommandExecutor {
 							String[] splited = args[0].split(":");
 							String id = splited[0];
 							String meta = splited[1];
-							ItemStack itemstack = new ItemStack(Integer.valueOf(id), Integer.valueOf(args[1]), Short.parseShort(meta));
+							ItemStack itemstack = Main.ITEMDB.getItem(Integer.valueOf(id), Short.valueOf(meta), Integer.valueOf(args[1]));
+							String name = Main.ITEMDB.getName(Integer.valueOf(id), Short.valueOf(meta));
 							for(Player p : Bukkit.getOnlinePlayers()) {
 								p.getInventory().addItem(itemstack);
-								p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", args[0])); 
+								p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
 							}
 						} else {
-							ItemStack itemstack = new ItemStack(Integer.valueOf(args[0]), Integer.valueOf(args[1]));
-							for(Player p : Bukkit.getOnlinePlayers()) {
-								p.getInventory().addItem(itemstack);
-								p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", itemstack.getItemMeta().getDisplayName())); 
+							if(args[0].matches("[1-9]")) {
+								ItemStack itemstack = Main.ITEMDB.getItem(Integer.valueOf(args[0]), Integer.valueOf(args[1]));
+								String name = Main.ITEMDB.getName(Integer.valueOf(args[0]), (short)0);
+								for(Player p : Bukkit.getOnlinePlayers()) {
+									p.getInventory().addItem(itemstack);
+									p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
+								}
+							} else {
+								try {
+									ItemStack itemstack = Main.ITEMDB.getItem(args[0], Integer.valueOf(args[1]));
+									String name = args[0].toLowerCase();
+									for(Player p : Bukkit.getOnlinePlayers()) {
+										p.getInventory().addItem(itemstack);
+										p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
+									}
+								} catch(IllegalArgumentException e) {
+									Main.LOG.info(ChatColor.RED + "Unknown Item.");
+								}
 							}
 						}
 						Main.LOG.info("Command successfully used.");
@@ -110,7 +142,7 @@ public class CommandGiveall implements CommandExecutor {
 				
 				} catch(NumberFormatException e) {
 					Main.LOG.info(ChatColor.RED + "Plese use only numbers.");
-				} catch(ArrayIndexOutOfBoundsException e) {
+				} catch(ArrayIndexOutOfBoundsException | NullPointerException e) {
 					Main.LOG.info(ChatColor.RED + "Unknown Item-ID");
 				}
 			}

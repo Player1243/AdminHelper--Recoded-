@@ -39,6 +39,16 @@ public class AdminHelperAntiSpamAPI {
 		Matcher searchforips = this.ipPattern.matcher(word.toLowerCase());
 		Matcher searchforweb = this.webPattern.matcher(word.toLowerCase());
 		if((searchforips.find()) || (searchforweb.find())) return true;
-		else return false;
+		else return false;	
+	}
+
+	public boolean check(String[] word) {
+		boolean contains = false;
+		for(String w : word) {
+			Matcher searchforips = this.ipPattern.matcher(w);
+			Matcher searchforweb = this.webPattern.matcher(w);
+			if((searchforips.find()) || (searchforweb.find())) contains = true;
+		}
+		return contains;
 	}
 }

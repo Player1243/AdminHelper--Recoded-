@@ -57,7 +57,7 @@ public class UpdateAlert {
 		}
 	}
 	
-	public void updateInformations() {
+	public void updateInformation() {
 		boolean ret = true;
 		try {
 			//Version and link

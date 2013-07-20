@@ -43,6 +43,9 @@ public abstract class CommandsManager implements CommandExecutor{
 		  CommandAdminHelper adminhelper = new CommandAdminHelper();
 		  CommandKickall kickall = new CommandKickall();
 
+		  CommandTest test = new CommandTest();
+		  Main.INSTANCE.getCommand("test").setExecutor(test);
+		  
 		  Main.INSTANCE.getCommand("globalmute").setExecutor(globalmute);
 		  Main.INSTANCE.getCommand("clearchat").setExecutor(clearchat);
 		  Main.INSTANCE.getCommand("pcc").setExecutor(clearchatprivate);
