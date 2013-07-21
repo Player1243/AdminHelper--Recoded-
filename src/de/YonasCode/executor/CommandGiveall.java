@@ -89,7 +89,7 @@ public class CommandGiveall implements CommandExecutor {
 					
 					} catch(NumberFormatException e) {
 						pl.sendMessage(ChatColor.RED + "Plese use only numbers.");
-					} catch(ArrayIndexOutOfBoundsException | NullPointerException e) {
+					} catch(ArrayIndexOutOfBoundsException | NullPointerException | IllegalArgumentException e) {
 						pl.sendMessage(ChatColor.RED + "Unknown Item-ID");
 						e.printStackTrace();
 					}
@@ -142,7 +142,7 @@ public class CommandGiveall implements CommandExecutor {
 				
 				} catch(NumberFormatException e) {
 					Main.LOG.info(ChatColor.RED + "Plese use only numbers.");
-				} catch(ArrayIndexOutOfBoundsException | NullPointerException e) {
+				} catch(ArrayIndexOutOfBoundsException | NullPointerException | IllegalArgumentException e) {
 					Main.LOG.info(ChatColor.RED + "Unknown Item-ID");
 				}
 			}

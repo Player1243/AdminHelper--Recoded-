@@ -74,10 +74,13 @@ public class ItemDatabase {
 	
 	public String getName(int id, short metadata) {
 		String name = null;
+		boolean run = true;
 			for(String c : cache) {
 				String[] i = c.split(",");
-				if((Integer.valueOf(i[1]) == id) && (Short.valueOf(i[2]) == metadata))
+				if(((Integer.valueOf(i[1]) == id) && (Short.valueOf(i[2]) == metadata)) && run) {
+					run = false;
 					name = i[0];
+				}
 			}
 		return name.toLowerCase();
 	}
