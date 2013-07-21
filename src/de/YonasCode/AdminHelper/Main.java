@@ -27,7 +27,7 @@
 */
 package de.YonasCode.AdminHelper;
 
-import de.YonasCode.AdminHelper.API.AdminHelperAntiSpamAPI;
+import de.YonasCode.AdminHelper.API.AdminHelperAPI;
 import de.YonasCode.AdminHelper.Database.ItemDatabase;
 import de.YonasCode.AdminHelper.UpdateSystem.FileUpdate;
 import de.YonasCode.AdminHelper.UpdateSystem.UpdateAlert;
@@ -38,15 +38,21 @@ import java.util.logging.Logger;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * 
+ * @author Yonas
+ *
+ */
+
 public class Main extends JavaPlugin {
 
 	public static Main INSTANCE;
 	public static AdminHelper ADMINHELPER;
 	public static UpdateAlert UPDATEALERT;
-	public static AdminHelperAntiSpamAPI ANTISPAM;
 	public static FileUpdate FILEUPDATE;
 	public static FileConfiguration CONFIG;
 	public static ItemDatabase ITEMDB;
+	public static AdminHelperAPI API;
 	public static Logger LOG = Logger.getLogger("Minecraft");
 
 	public static Runtime RUNTIME = Runtime.getRuntime();
@@ -56,8 +62,8 @@ public class Main extends JavaPlugin {
 		INSTANCE 					= this;
 		CONFIG 						= getConfig();
 		ADMINHELPER 				= new AdminHelper();
-		ANTISPAM					= new AdminHelperAntiSpamAPI();
 		ITEMDB						= new ItemDatabase();
+		API							= new AdminHelperAPI();
 		
 		if(Booleans.OPT_OUT) {
 		      UPDATEALERT = new UpdateAlert("http://krueger-jan.de/category/adminhelper/feed/");
@@ -82,7 +88,8 @@ public class Main extends JavaPlugin {
 	
 	@Override
 	public void onDisable() {
-		
+		if(ADMINHELPER != null)
+			ADMINHELPER.unloadMetrics();
 	}
 	
 }

@@ -10,6 +10,11 @@ import org.bukkit.inventory.ItemStack;
 
 import de.YonasCode.AdminHelper.Main;
 
+/**
+ * 
+ * @author Yonas
+ *
+ */
 
 public class ItemDatabase {
 	

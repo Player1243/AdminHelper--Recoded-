@@ -41,16 +41,26 @@ public class AdminHelperAntiSpamAPI {
 	Pattern ipPattern = Pattern.compile("((?<![0-9])(?:(?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})[ ]?[.,_ ][ ]?(?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})[ ]?[.,_ ][ ]?(?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})[ ]?[.,_ ][ ]?(?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2}))(?![0-9]))");
 	Pattern webPattern = Pattern.compile("(http://)|(https://)?(www)?\\S{2,}((\\.com)|(\\.ru)|(\\.net)|(\\.org)|(\\.co\\.uk)|(\\.tk)|(\\.info)|(\\.es)|(\\.de)|(\\.arpa)|(\\.edu)|(\\.firm)|(\\.int)|(\\.mil)|(\\.mobi)|(\\.nato)|(\\.to)|(\\.fr)|(\\.ms)|(\\.vu)|(\\.eu)|(\\.nl)|(\\.us)|(\\.dk))");
 	
+	
+	/**
+	 * @param word The word that you want to check if it contains an ip or url
+	 * @return
+	 */
 	public boolean check(String word) {
 		Matcher searchforips = this.ipPattern.matcher(word.toLowerCase());
 		Matcher searchforweb = this.webPattern.matcher(word.toLowerCase());
 		if((searchforips.find()) || (searchforweb.find())) return true;
 		else return false;	
 	}
-
-	public boolean check(String[] word) {
+	
+	/**
+	 * 
+	 * @param words The wars, in a arraylist, that you want to check if it contains an ip or url
+	 * @return
+	 */
+	public boolean check(String[] words) {
 		boolean contains = false;
-		for(String w : word) {
+		for(String w : words) {
 			Matcher searchforips = this.ipPattern.matcher(w);
 			Matcher searchforweb = this.webPattern.matcher(w);
 			if((searchforips.find()) || (searchforweb.find())) contains = true;

@@ -125,7 +125,7 @@ public class ChatListener implements Listener {
 		if(Booleans.ANTIADVERTISING) {
 			if(!(event.getPlayer().hasPermission(Permission.ANTIADVERTISING_IGNORE))) {
 				if(Booleans.ANTIADVERTISINGEXTREME) {
-					if(Main.ANTISPAM.check(event.getMessage().replaceAll(" ", ""))) {
+					if(Main.API.AntiSpamAPI().check(event.getMessage().replaceAll(" ", ""))) {
 						event.getPlayer().sendMessage(Message.ANTIADVERTISING);
 						if(Booleans.ANTIADVERTISING) {
 							for(Player p : Bukkit.getOnlinePlayers()) {
@@ -139,7 +139,7 @@ public class ChatListener implements Listener {
 					boolean success = false;
 					ArrayList<String> detectedwords = new ArrayList<String>();
 					for(String w : event.getMessage().split(" ")) {
-						if(Main.ANTISPAM.check(w)) {
+						if(Main.API.AntiSpamAPI().check(w)) {
 							detectedwords.add(w);
 							success = true;
 							StringBuilder newword = new StringBuilder();
@@ -166,7 +166,7 @@ public class ChatListener implements Listener {
 		if(Booleans.ANTIADVERTISING) {
 			if(!(event.getPlayer().hasPermission(Permission.ANTIADVERTISING_IGNORE))) {
 				if(Booleans.ANTIADVERTISINGEXTREME) {
-					if(Main.ANTISPAM.check(event.getMessage().replaceAll(" ", ""))) {
+					if(Main.API.AntiSpamAPI().check(event.getMessage().replaceAll(" ", ""))) {
 						event.getPlayer().sendMessage(Message.ANTIADVERTISING);
 						if(Booleans.ANTIADVERTISING) {
 							for(Player p : Bukkit.getOnlinePlayers()) {
@@ -180,7 +180,7 @@ public class ChatListener implements Listener {
 					boolean success = false;
 					ArrayList<String> detectedwords = new ArrayList<String>();
 					for(String w : event.getMessage().split(" ")) {
-						if(Main.ANTISPAM.check(w)) {
+						if(Main.API.AntiSpamAPI().check(w)) {
 							detectedwords.add(w);
 							success = true;
 							StringBuilder newword = new StringBuilder();

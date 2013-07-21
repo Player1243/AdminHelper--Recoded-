@@ -64,7 +64,7 @@ public class CommandGiveall implements CommandExecutor {
 									p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
 								}
 							} else {
-								if(args[0].matches("[1-9]")) {
+								if(args[0].matches("\\d+")) {
 									ItemStack itemstack = Main.ITEMDB.getItem(Integer.valueOf(args[0]), Integer.valueOf(args[1]));
 									String name = Main.ITEMDB.getName(Integer.valueOf(args[0]), Short.valueOf((short) 0));
 									for(Player p : Bukkit.getOnlinePlayers()) {
@@ -117,7 +117,7 @@ public class CommandGiveall implements CommandExecutor {
 								p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
 							}
 						} else {
-							if(args[0].matches("[1-9]")) {
+							if(args[0].matches("\\d+")) {
 								ItemStack itemstack = Main.ITEMDB.getItem(Integer.valueOf(args[0]), Integer.valueOf(args[1]));
 								String name = Main.ITEMDB.getName(Integer.valueOf(args[0]), (short)0);
 								for(Player p : Bukkit.getOnlinePlayers()) {

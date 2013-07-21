@@ -27,12 +27,6 @@
 */
 package de.YonasCode.AdminHelper.API;
 
-/**
- * 
- * @author Jan Krüger
- * 
- */
-
 import java.util.List;
 
 import de.YonasCode.AdminHelper.Main;
@@ -40,38 +34,163 @@ import de.YonasCode.AdminHelper.Main;
 
 public class AdminHelperAPI {
 	
+	/**
+	 * @author Jan Krüger
+	 * @version 1.5 
+	 */
+	
 	private Variables v = new Variables();
-
-	public AdminHelperFireWork FireworkAPI = new AdminHelperFireWork();
-	public AdminHelperBugFixing BugFixingAPI = new AdminHelperBugFixing();
-	public AdminHelperAntiSpamAPI AntiSpamAPI = new AdminHelperAntiSpamAPI();
 	
-	public String getVersion = this.v.getVersion();
-	public List<String> getAuthors = this.v.getAuthors();
-	public List<String> getPermissions = this.v.allPermissions();
+	/**
+	 * @return the FireWork API
+	 */
+	public AdminHelperFireWork FireworkAPI() {
+		return new AdminHelperFireWork();
+	}
 	
-	public boolean OPTOUT = this.v.optout();
+	/**
+	 * @return the BugFixing API
+	 */
+	public AdminHelperBugFixing BugFixingAPI() {
+		return new AdminHelperBugFixing();
+	}
 	
-	public boolean UPDATE_NEEDED = Main.UPDATEALERT.updateNeeded();
-	public String LATEST_VERSION_ID = Main.UPDATEALERT.getVersion();
-	public String LATEST_VERSION_LINK = Main.UPDATEALERT.getLink();
+	/**
+	 * @return the AntiSpam API
+	 */
+	public AdminHelperAntiSpamAPI AntiSpamAPI() {
+		return new AdminHelperAntiSpamAPI();
+	}
 	
-	public boolean isGlobalmute = this.v.globalmute();
+	/**
+	 * @return the Item API
+	 */
+	public AdminHelperItemAPI ItemAPI() {
+		return new AdminHelperItemAPI();
+	}
 	
-	public boolean isAntiSeven = this.v.antiseven();
+	/**
+	 * @return the AdminHelper Plugin Version
+	 */
+	public String getVersion() {
+		return this.v.getVersion();
+	}
 	
-	public boolean isAntiSpam = this.v.antispam();
-
-	public boolean isAntiAdvertising = this.v.antiadvertisting();
+	/**
+	 * @return all Authors of the Plugin AdminHelper
+	 */
+	public List<String> getAuthors() {
+		return this.v.getAuthors();
+	}
 	
-	public boolean isAntiCaps = this.v.anticaps();
-	public int AntiCapsTotalAllowd = this.v.anticapstotal();
-
-	public long RAM_MAX = this.v.maxmemory();
-	public long RAM_FREE = this.v.freememory();
-	public long RAM_TOTAL = this.v.totalmemory();
-	public long PROCESSORS_AVAILABLE = this.v.availableproccessors();
-
+	/**
+	 * @return all Permissions that the Plugin contains
+	 */
+	public List<String> getPermissions() { 
+		return this.v.allPermissions();
+	}
+	
+	/**
+	 * @return the boolean if the opt-out function enabled
+	 */
+	public boolean OPTOUT() {
+		return this.v.optout();
+	}
+	
+	/**
+	 * @return the boolean if a new update available
+	 */
+	public boolean UPDATE_NEEDED() {
+		return Main.UPDATEALERT.updateNeeded();
+	}
+	
+	/**
+	 * @retun the latest version id 
+	 */
+	public String LATEST_VERSION_ID() {
+		return Main.UPDATEALERT.getVersion();
+	}
+	
+	/**
+	 * @return the link from the latest version
+	 */
+	public String LATEST_VERSION_LINK() { 
+		return Main.UPDATEALERT.getLink();
+	}
+	
+	/**
+	 * @return return a boolean if the globalmute active
+	 */
+	public boolean isGlobalmute() {
+		return this.v.globalmute();
+	}
+	
+	/**
+	 * @return return a boolean if the antiseven active
+	 */
+	public boolean isAntiSeven() { 
+		return this.v.antiseven();
+	}
+	
+	/**
+	 * @return return a boolean if the antiseven active
+	 */
+	public boolean isAntiSpam() {
+		return this.v.antispam();
+	}
+	
+	/**
+	 * @return return a boolean if the antiadvertising active
+	 */
+	public boolean isAntiAdvertising() {
+		return this.v.antiadvertisting();
+	}
+	
+	/**
+	 * @return return the boolean if the anticaps active
+	 */
+	public boolean isAntiCaps() { 
+		return this.v.anticaps();
+	}
+	
+	/**
+	 * @return return the total allowed caps per message
+	 */
+	public int AntiCapsTotalAllowed() {
+		return this.v.anticapstotal();
+	}
+	
+	/**
+	 * @return return the maximal memory
+	 */
+	public long RAM_MAX() {
+		return this.v.maxmemory();
+	}
+	
+	/**
+	 * @return return the free memory
+	 */
+	public long RAM_FREE() {
+		return this.v.freememory();
+	}
+	
+	/**
+	 * @return return the total memory
+	 */
+	public long RAM_TOTAL() {
+		return this.v.totalmemory();
+	}
+	
+	/**
+	 * @return the number of available proccessors
+	 */
+	public long PROCESSORS_AVAILABLE() {
+		return this.v.availableproccessors();
+	}
+	
+	/**
+	 * @return nothing, updated only the update informations
+	 */
 	public void updateUpdateInformation() {
 	    Main.UPDATEALERT.updateInformation();
 	}
