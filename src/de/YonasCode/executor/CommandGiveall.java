@@ -72,16 +72,11 @@ public class CommandGiveall implements CommandExecutor {
 										p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
 									}
 								} else {
-									try {
-										ItemStack itemstack = Main.ITEMDB.getItem(args[0], Integer.valueOf(args[1]));
-										String name = args[0].toLowerCase();
-										for(Player p : Bukkit.getOnlinePlayers()) {
-											p.getInventory().addItem(itemstack);
-											p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
-										}
-									} catch(IllegalArgumentException e) {
-										pl.sendMessage(ChatColor.RED + "Unknown Item.");
-										e.printStackTrace();
+									ItemStack itemstack = Main.ITEMDB.getItem(args[0], Integer.valueOf(args[1]));
+									String name = Main.ITEMDB.getName(itemstack.getTypeId(), itemstack.getDurability());
+									for(Player p : Bukkit.getOnlinePlayers()) {
+										p.getInventory().addItem(itemstack);
+										p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
 									}
 								}
 							}
@@ -91,7 +86,6 @@ public class CommandGiveall implements CommandExecutor {
 						pl.sendMessage(ChatColor.RED + "Plese use only numbers.");
 					} catch(ArrayIndexOutOfBoundsException | NullPointerException | IllegalArgumentException e) {
 						pl.sendMessage(ChatColor.RED + "Unknown Item-ID");
-						e.printStackTrace();
 					}
 				} else {
 					pl.sendMessage(Message.NO_PERMISSIONS);
@@ -125,15 +119,11 @@ public class CommandGiveall implements CommandExecutor {
 									p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
 								}
 							} else {
-								try {
-									ItemStack itemstack = Main.ITEMDB.getItem(args[0], Integer.valueOf(args[1]));
-									String name = args[0].toLowerCase();
-									for(Player p : Bukkit.getOnlinePlayers()) {
-										p.getInventory().addItem(itemstack);
-										p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
-									}
-								} catch(IllegalArgumentException e) {
-									Main.LOG.info(ChatColor.RED + "Unknown Item.");
+								ItemStack itemstack = Main.ITEMDB.getItem(args[0], Integer.valueOf(args[1]));
+								String name = Main.ITEMDB.getName(itemstack.getTypeId(), itemstack.getDurability());
+								for(Player p : Bukkit.getOnlinePlayers()) {
+									p.getInventory().addItem(itemstack);
+									p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
 								}
 							}
 						}

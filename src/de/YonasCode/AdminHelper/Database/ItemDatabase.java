@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import org.apache.commons.lang.WordUtils;
 import org.bukkit.inventory.ItemStack;
 
 import de.YonasCode.AdminHelper.Main;
@@ -82,6 +83,6 @@ public class ItemDatabase {
 					name = i[0];
 				}
 			}
-		return name.toLowerCase();
+		return name = WordUtils.capitalize(name);
 	}
 }
