@@ -4,6 +4,7 @@ chat.function.anticaps.total: 51
 chat.function.antispam.enabled: true
 chat.function.antiseven.enabled: true
 chat.function.antiadvertising.enabled: true
+chat.function.antiadvertising.bycommands: true
 chat.function.antiadvertising.extreme-mod: false
 chat.function.antiadvertising.warning-message: true
 messages.noPermissions: '&4Sry, you do not have enough permission to use this command.'

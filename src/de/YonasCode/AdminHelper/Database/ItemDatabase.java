@@ -20,14 +20,14 @@ import de.YonasCode.AdminHelper.Main;
 public class ItemDatabase {
 	
 	private ArrayList<String> cache = new ArrayList<String>();
+	private InputStream resource = null;
 	
 	public void loadItemDatabase() throws IOException {
-		InputStream in = null;
 		BufferedReader reader = null;
 		
 		try {
-			in = Main.INSTANCE.getResource("ItemDatabase.csv");
-			reader = new BufferedReader(new InputStreamReader(in));
+			resource = Main.INSTANCE.getResource("ItemDatabase.csv");
+			reader = new BufferedReader(new InputStreamReader(resource));
 			
 			String line;
 			
@@ -38,7 +38,7 @@ public class ItemDatabase {
 			Main.LOG.info("The cache contains now " + cache.size() + " items.");
 		} finally {
 			if(reader != null) reader.close();
-			if(in != null) in.close();
+			if(resource != null) resource.close();
 		}
 	}
 	
@@ -84,5 +84,9 @@ public class ItemDatabase {
 				}
 			}
 		return name = WordUtils.capitalize(name);
+	}
+	
+	public InputStream getResource() {
+		return this.resource;
 	}
 }

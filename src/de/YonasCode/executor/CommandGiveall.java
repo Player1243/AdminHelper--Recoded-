@@ -53,32 +53,36 @@ public class CommandGiveall implements CommandExecutor {
 						else if(args.length == 1) 
 							pl.sendMessage(Message.MOREARGUMENTS);
 						else if(args.length >= 2) {
-							if(args[0].contains(":")) {
-								String[] splited = args[0].split(":");
-								String id = splited[0];
-								String meta = splited[1];
-								ItemStack itemstack = Main.ITEMDB.getItem(Integer.valueOf(id), Short.valueOf(meta), Integer.valueOf(args[1]));
-								String name = Main.ITEMDB.getName(Integer.valueOf(id), Short.valueOf(meta));
-								for(Player p : Bukkit.getOnlinePlayers()) {
-									p.getInventory().addItem(itemstack);
-									p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
-								}
-							} else {
-								if(args[0].matches("\\d+")) {
-									ItemStack itemstack = Main.ITEMDB.getItem(Integer.valueOf(args[0]), Integer.valueOf(args[1]));
-									String name = Main.ITEMDB.getName(Integer.valueOf(args[0]), Short.valueOf((short) 0));
+							if(Integer.valueOf(args[1]) >= 1) {
+								if(args[0].contains(":")) {
+									String[] splited = args[0].split(":");
+									String id = splited[0];
+									String meta = splited[1];
+									ItemStack itemstack = Main.ITEMDB.getItem(Integer.valueOf(id), Short.valueOf(meta), Integer.valueOf(args[1]));
+									String name = Main.ITEMDB.getName(Integer.valueOf(id), Short.valueOf(meta));
 									for(Player p : Bukkit.getOnlinePlayers()) {
 										p.getInventory().addItem(itemstack);
 										p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
 									}
 								} else {
-									ItemStack itemstack = Main.ITEMDB.getItem(args[0], Integer.valueOf(args[1]));
-									String name = Main.ITEMDB.getName(itemstack.getTypeId(), itemstack.getDurability());
-									for(Player p : Bukkit.getOnlinePlayers()) {
-										p.getInventory().addItem(itemstack);
-										p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
+									if(args[0].matches("\\d+")) {
+										ItemStack itemstack = Main.ITEMDB.getItem(Integer.valueOf(args[0]), Integer.valueOf(args[1]));
+										String name = Main.ITEMDB.getName(Integer.valueOf(args[0]), Short.valueOf((short) 0));
+										for(Player p : Bukkit.getOnlinePlayers()) {
+											p.getInventory().addItem(itemstack);
+											p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
+										}
+									} else {
+										ItemStack itemstack = Main.ITEMDB.getItem(args[0], Integer.valueOf(args[1]));
+										String name = Main.ITEMDB.getName(itemstack.getTypeId(), itemstack.getDurability());
+										for(Player p : Bukkit.getOnlinePlayers()) {
+											p.getInventory().addItem(itemstack);
+											p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
+										}
 									}
 								}
+							} else {
+								pl.sendMessage(ChatColor.RED + "The amount must be bigger than " + Integer.valueOf(args[1]) + ".");
 							}
 						}
 					
@@ -100,34 +104,38 @@ public class CommandGiveall implements CommandExecutor {
 					else if(args.length == 1) 
 						Main.LOG.info(Message.MOREARGUMENTS);
 					else if(args.length >= 2) {
-						if(args[0].contains(":")) {
-							String[] splited = args[0].split(":");
-							String id = splited[0];
-							String meta = splited[1];
-							ItemStack itemstack = Main.ITEMDB.getItem(Integer.valueOf(id), Short.valueOf(meta), Integer.valueOf(args[1]));
-							String name = Main.ITEMDB.getName(Integer.valueOf(id), Short.valueOf(meta));
-							for(Player p : Bukkit.getOnlinePlayers()) {
-								p.getInventory().addItem(itemstack);
-								p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
-							}
-						} else {
-							if(args[0].matches("\\d+")) {
-								ItemStack itemstack = Main.ITEMDB.getItem(Integer.valueOf(args[0]), Integer.valueOf(args[1]));
-								String name = Main.ITEMDB.getName(Integer.valueOf(args[0]), (short)0);
+						if(Integer.valueOf(args[1]) >= 1) {
+							if(args[0].contains(":")) {
+								String[] splited = args[0].split(":");
+								String id = splited[0];
+								String meta = splited[1];
+								ItemStack itemstack = Main.ITEMDB.getItem(Integer.valueOf(id), Short.valueOf(meta), Integer.valueOf(args[1]));
+								String name = Main.ITEMDB.getName(Integer.valueOf(id), Short.valueOf(meta));
 								for(Player p : Bukkit.getOnlinePlayers()) {
 									p.getInventory().addItem(itemstack);
 									p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
 								}
 							} else {
-								ItemStack itemstack = Main.ITEMDB.getItem(args[0], Integer.valueOf(args[1]));
-								String name = Main.ITEMDB.getName(itemstack.getTypeId(), itemstack.getDurability());
-								for(Player p : Bukkit.getOnlinePlayers()) {
-									p.getInventory().addItem(itemstack);
-									p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
+								if(args[0].matches("\\d+")) {
+									ItemStack itemstack = Main.ITEMDB.getItem(Integer.valueOf(args[0]), Integer.valueOf(args[1]));
+									String name = Main.ITEMDB.getName(Integer.valueOf(args[0]), (short)0);
+									for(Player p : Bukkit.getOnlinePlayers()) {
+										p.getInventory().addItem(itemstack);
+										p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
+									}
+								} else {
+									ItemStack itemstack = Main.ITEMDB.getItem(args[0], Integer.valueOf(args[1]));
+									String name = Main.ITEMDB.getName(itemstack.getTypeId(), itemstack.getDurability());
+									for(Player p : Bukkit.getOnlinePlayers()) {
+										p.getInventory().addItem(itemstack);
+										p.sendMessage(Message.GIVEALL.replaceAll("%player%", p.getName()).replaceAll("%amount%", args[1]).replaceAll("%item%", name)); 
+									}
 								}
 							}
-						}
 						Main.LOG.info("Command successfully used.");
+						} else {
+							Main.LOG.info(ChatColor.RED + "The amount must be bigger than " + Integer.valueOf(args[1]) + ".");
+						}
 					}
 				
 				} catch(NumberFormatException e) {

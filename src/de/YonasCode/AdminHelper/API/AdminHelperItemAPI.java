@@ -1,6 +1,7 @@
 package de.YonasCode.AdminHelper.API;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.bukkit.inventory.ItemStack;
 
@@ -57,6 +58,14 @@ public class AdminHelperItemAPI {
 	 */
 	public String getName(int id, short metadata) {
 		return Main.ITEMDB.getName(id, metadata);
+	}
+	
+	/**
+	 * @return the ItemDatabase file as InputStream
+	 * @throws NullPointerException you can a NullPointerException if you don't use the function loadItemDatabase() or the function loadItemDatabase() couldn't load the file
+	 */
+	public InputStream getResource() throws NullPointerException {
+		return Main.ITEMDB.getResource();
 	}
 	
 	

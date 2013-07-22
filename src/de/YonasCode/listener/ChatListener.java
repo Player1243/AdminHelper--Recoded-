@@ -30,7 +30,6 @@ package de.YonasCode.listener;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.SimpleCommandMap;
@@ -163,7 +162,7 @@ public class ChatListener implements Listener {
 	
 	@EventHandler
 	public void onAdverisingCommand(PlayerCommandPreprocessEvent event) {
-		if(Booleans.ANTIADVERTISING) {
+		if(Booleans.ANTIADVERTISING_BY_COMMANDS) {
 			if(!(event.getPlayer().hasPermission(Permission.ANTIADVERTISING_IGNORE))) {
 				if(Booleans.ANTIADVERTISINGEXTREME) {
 					if(Main.API.AntiSpamAPI().check(event.getMessage().replaceAll(" ", ""))) {

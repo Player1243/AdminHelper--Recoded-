@@ -147,6 +147,13 @@ public class AdminHelperAPI {
 	}
 	
 	/**
+	 * 
+	 */
+	public boolean isAntiAdvertisingByCommands() {
+		return this.v.antiadvertisingbycommands();
+	}
+	
+	/**
 	 * @return return the boolean if the anticaps active
 	 */
 	public boolean isAntiCaps() { 

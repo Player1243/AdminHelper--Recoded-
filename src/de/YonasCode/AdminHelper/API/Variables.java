@@ -89,6 +89,10 @@ public class Variables {
 		return Booleans.ANTIADVERTISING;
 	}
 	
+	public boolean antiadvertisingbycommands() {
+		return Booleans.ANTIADVERTISING_BY_COMMANDS;
+	}
+	
 	public boolean anticaps() {
 		return Booleans.ANTICAPS;
 	}

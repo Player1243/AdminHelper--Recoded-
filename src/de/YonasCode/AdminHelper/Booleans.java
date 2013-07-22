@@ -35,6 +35,7 @@ public class Booleans {
 	  public static boolean ANTICAPS = Main.CONFIG.getBoolean("chat.function.anticaps.enabled");
 	  public static boolean ANTISPAM = Main.CONFIG.getBoolean("chat.function.antispam.enabled");
 	  public static boolean ANTIADVERTISING = Main.CONFIG.getBoolean("chat.function.antiadvertising.enabled");
+	  public static boolean ANTIADVERTISING_BY_COMMANDS	= Main.CONFIG.getBoolean("chat.function.antiadvertising.bycommands");
 	  public static boolean ANTIADVERTISINGEXTREME = Main.CONFIG.getBoolean("chat.function.antiadvertising.extreme-mod");
 	  public static boolean ANTIADVERTISINGMESSAGE = Main.CONFIG.getBoolean("chat.function.antiadvertising.warning-message");
 
