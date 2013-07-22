@@ -19,22 +19,27 @@ public class BadWordsDatabase {
 	private BufferedReader br;
 	
 	public void loadDatabase() throws IOException {
-		
-		is = new FileInputStream(database);
-		isr = new InputStreamReader(is);
-		br = new BufferedReader(isr); 
+		try {
+			is = new FileInputStream(database);
+			isr = new InputStreamReader(is);
+			br = new BufferedReader(isr); 
 			
-		if(!(database.exists())) {
-			database.createNewFile();
+			if(!(database.exists())) {
+				database.createNewFile();
+			}
+		
+			String line;
+		
+			while((line = br.readLine()) != null) {
+				cache.add(line.toLowerCase());
+			}
+		
+			Main.LOG.info("Cache-Size: " + cache.size());
+		} finally {
+			if(is != null) is.close();
+			if(isr != null) isr.close();
+			if(br != null) br.close();
 		}
-		
-		String line;
-		
-		while((line = br.readLine()) != null) {
-			cache.add(line.toLowerCase());
-		}
-		
-		Main.LOG.info("Cache-Size: " + cache.size());
 	}
 	
 	public boolean check(String word) {
@@ -48,7 +53,7 @@ public class BadWordsDatabase {
 	}
 	
 	/*
-	 * this function is in work
+	 * this class is in work
 	 */
 	
 }
