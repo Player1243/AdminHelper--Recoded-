@@ -93,6 +93,10 @@ public class Variables {
 		return Booleans.ANTIADVERTISING_BY_COMMANDS;
 	}
 	
+	public boolean antibadword() {
+		return Booleans.ANTIBADWORD;
+	}
+	
 	public boolean anticaps() {
 		return Booleans.ANTICAPS;
 	}

@@ -163,8 +163,15 @@ public class AdminHelperAPI {
 	/**
 	 * @return return the total allowed caps per message
 	 */
-	public int AntiCapsTotalAllowed() {
+	public int antiCapsTotalAllowed() {
 		return this.v.anticapstotal();
+	}
+	
+	/**
+	 * @return the boolean if the antibadword active
+	 */
+	public boolean antiBadWord() {
+		return this.v.antibadword();
 	}
 	
 	/**

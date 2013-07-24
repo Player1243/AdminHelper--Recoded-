@@ -49,6 +49,9 @@ public class CommandClearchatPrivate implements CommandExecutor {
 						pl.sendMessage(message.toString());
 					}
 					pl.sendMessage(Message.CLEARCHAT_PRIVATED);
+				} else {
+					pl.sendMessage(Message.NO_PERMISSIONS);
+					return true;
 				}
 			}
 			return true;
@@ -56,5 +59,5 @@ public class CommandClearchatPrivate implements CommandExecutor {
 		
 		return false;
 	}
-
+	
 }

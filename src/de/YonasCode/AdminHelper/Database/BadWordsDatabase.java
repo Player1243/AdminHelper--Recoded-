@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.lang.StringUtils;
 
 import de.YonasCode.AdminHelper.Main;
 
@@ -50,6 +54,13 @@ public class BadWordsDatabase {
 					is = true;
 		}
 		return is;
+	}
+	
+	public boolean contains(String word) {
+		String pattern = "(" + StringUtils.join(this.cache, "|") + ")";
+		Pattern pat = Pattern.compile(pattern);
+		Matcher mat = pat.matcher(word.toLowerCase());
+		return mat.find();
 	}
 	
 	/*

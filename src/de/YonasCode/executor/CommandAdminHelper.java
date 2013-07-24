@@ -27,7 +27,6 @@
 */
 package de.YonasCode.executor;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -64,8 +63,8 @@ public class CommandAdminHelper implements CommandExecutor {
 					if(Booleans.OPT_OUT) {
 						pl.sendMessage(ChatColor.AQUA + "Change-Log: " + ChatColor.GOLD + Main.UPDATEALERT.getVersion() + ChatColor.GREEN + " (latest version)");
 						for(String s : Main.UPDATEALERT.getChangelog()) {
-							if(s != null)
-								Bukkit.broadcastMessage(s.replaceAll("\\+", ChatColor.GREEN + "+" + ChatColor.GOLD).replaceAll("\\-", ChatColor.RED + "-" + ChatColor.GOLD) + ChatColor.GOLD);
+							if(s != null && !(s.equalsIgnoreCase("")))
+								pl.sendMessage(s.replaceAll("\\+", ChatColor.GREEN + "+" + ChatColor.GOLD).replaceAll("\\-", ChatColor.RED + "-" + ChatColor.GOLD).replaceAll("&#124;", "") + ChatColor.GOLD);
 						}
 					}
 					
@@ -153,8 +152,8 @@ public class CommandAdminHelper implements CommandExecutor {
 					if(Booleans.OPT_OUT) {
 						Main.LOG.info(ChatColor.AQUA + "Change-Log: " + ChatColor.GOLD + Main.UPDATEALERT.getVersion() + ChatColor.GREEN + " (latest version)");
 						for(String s : Main.UPDATEALERT.getChangelog()) {
-							if(s != null)
-								Bukkit.broadcastMessage(s.replaceAll("\\+", ChatColor.GREEN + "+" + ChatColor.GOLD).replaceAll("\\-", ChatColor.RED + "-" + ChatColor.GOLD) + ChatColor.GOLD);
+							if(s != null && !(s.equalsIgnoreCase("")))
+								Main.LOG.info(s.replaceAll("\\+", ChatColor.GREEN + "+" + ChatColor.GOLD).replaceAll("\\-", ChatColor.RED + "-" + ChatColor.GOLD).replaceAll("&#124;", "") + ChatColor.GOLD);
 						}
 					}
 					

@@ -73,9 +73,8 @@ public class UpdateAlert {
 			ret = !(this.version.replaceAll(" ", "").equals(Main.INSTANCE.getDescription().getVersion().replaceAll(" ", "")));
 			
 			//changelog
-			String cg = children.item(17).getTextContent().replaceAll("(\r\n|\n)", "").replaceAll("<br/>", "<br />").replaceAll("<br />", "<br />").replaceAll("<br>", "<br />").replaceAll("<p>", "").replaceAll("</p>", "");
-			this.changelog = cg.split("<br />");
-			
+			String cg = children.item(15).getTextContent().replaceAll("(\r\n|\n)", "").replaceAll("<br/>", "").replaceAll("<br />", "").replaceAll("<br>", "").replaceAll("<p>", "").replaceAll("</p>", "").replaceAll("\r\n", "");
+			this.changelog = cg.split("&#124;");
 		} catch(SAXException|ParserConfigurationException|IOException e) {
 			Main.LOG.warning(e.toString());
 		}

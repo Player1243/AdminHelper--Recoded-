@@ -1,5 +1,5 @@
 name: AdminHelper
-version: 2.0.2
+version: 2.1
 author: Yonas
 description: Help to administrate your server
 main: de.YonasCode.AdminHelper.Main
@@ -41,8 +41,4 @@ commands:
      kickall:
           description: Kicked all online players
           usage: /<command> <reason>
-          default: op
-     test:
-          description: test
-          usage: /<command>
           default: op

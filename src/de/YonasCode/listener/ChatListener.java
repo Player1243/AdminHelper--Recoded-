@@ -106,7 +106,6 @@ public class ChatListener implements Listener {
 			if(!(event.getPlayer().hasPermission(Permission.ANTISPAM_IGNORE))) {
 				if(this.antispam.containsKey(event.getPlayer().getName())) {
 					if(this.antispam.get(event.getPlayer().getName()).equals(event.getMessage().toLowerCase())) {
-						this.antispam.remove(event.getPlayer().getName());
 						event.getPlayer().sendMessage(Message.ANTISPAM);
 						event.setCancelled(true);
 					} else {
@@ -160,8 +159,47 @@ public class ChatListener implements Listener {
 		}
 	}
 	
+	/*@EventHandler
+	public void onBadword(AsyncPlayerChatEvent event) {
+		if(Booleans.ANTIBADWORD) {
+			if(!(event.getPlayer().hasPermission(Permission.ANTIBADWORD_IGNORE))) {
+				ArrayList<String> detectedwords = new ArrayList<String>();
+				boolean success = false;
+				for(String w : event.getMessage().split(" ")) {
+					if(Main.BWD.check(w)) {
+						success = true;
+						detectedwords.add(w);
+						StringBuilder newword = new StringBuilder();
+						char[] charedword = w.toCharArray();
+						for(int i = 0; i < charedword.length; i++) {
+							newword.append(ChatColor.BOLD + "" + ChatColor.DARK_RED + "*");
+						}
+						event.setMessage(event.getMessage().replaceAll(w, newword.toString() + ChatColor.RESET));
+					} else {
+						if(Main.BWD.contains(w)) {
+							success = true;
+							detectedwords.add(w);
+							StringBuilder newword = new StringBuilder();
+							char[] charedword = w.toCharArray();
+							for(int i = 0; i < charedword.length; i++) {
+								newword.append(ChatColor.BOLD + "" + ChatColor.DARK_RED + "*");
+							}
+							event.setMessage(event.getMessage().replaceAll(w, newword.toString() + ChatColor.RESET));
+						}
+					}
+				}
+				if(Booleans.ANTIBADWORDMESSAGE && success) {
+					for(Player p : Bukkit.getOnlinePlayers()) {
+						if(p.hasPermission(Permission.ANTIBADWORD_MESSAGE))
+							p.sendMessage(Message.TAG + ChatColor.DARK_RED + "The player " + ChatColor.GOLD + event.getPlayer().getName() + ChatColor.DARK_RED + " tried to send a \"badword\". Detected-List: " + ChatColor.GOLD + detectedwords.toString());
+					}
+				}
+			}
+		}
+	}*/
+	
 	@EventHandler
-	public void onAdverisingCommand(PlayerCommandPreprocessEvent event) {
+	public void onAdvertisingCommand(PlayerCommandPreprocessEvent event) {
 		if(Booleans.ANTIADVERTISING_BY_COMMANDS) {
 			if(!(event.getPlayer().hasPermission(Permission.ANTIADVERTISING_IGNORE))) {
 				if(Booleans.ANTIADVERTISINGEXTREME) {

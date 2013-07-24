@@ -68,6 +68,7 @@ public class Main extends JavaPlugin {
 		CONFIG 			= this.getConfig();
 		ADMINHELPER 	= new AdminHelper();
 		ITEMDB			= new ItemDatabase();
+		API				= new AdminHelperAPI();
 		//BWD				= new BadWordsDatabase();
 		
 		if(Booleans.OPT_OUT) {
@@ -114,8 +115,7 @@ public class Main extends JavaPlugin {
 			BWD.loadDatabase();
 		} catch (IOException e) {
 			LOG.info(CTAG + "Can't create the badword database.");
-		}
-	    LOG.info(CTAG + "The badword database is now loaded.");*/
+		}*/
 	}
 	
 	@Override

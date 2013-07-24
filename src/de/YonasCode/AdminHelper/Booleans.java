@@ -28,7 +28,7 @@
 package de.YonasCode.AdminHelper;
 
 public class Booleans {
-	
+
 	  public static boolean GLOBALMUTE = false;
 
 	  public static boolean ANTISEVEN = Main.CONFIG.getBoolean("chat.function.antiseven.enabled");
@@ -38,7 +38,10 @@ public class Booleans {
 	  public static boolean ANTIADVERTISING_BY_COMMANDS	= Main.CONFIG.getBoolean("chat.function.antiadvertising.bycommands");
 	  public static boolean ANTIADVERTISINGEXTREME = Main.CONFIG.getBoolean("chat.function.antiadvertising.extreme-mod");
 	  public static boolean ANTIADVERTISINGMESSAGE = Main.CONFIG.getBoolean("chat.function.antiadvertising.warning-message");
-
+	  
+	  public static boolean ANTIBADWORD	= Main.CONFIG.getBoolean("chat.function.antibadword.enabled"); //not in config file
+	  public static boolean ANTIBADWORDMESSAGE = Main.CONFIG.getBoolean("chat.function.antibadword.warning-message"); //not in config file
+	  
 	  public static boolean OPT_OUT = Main.CONFIG.getBoolean("enabled-update-alert");
 	  public boolean UPDATE_NEEDED = Main.UPDATEALERT.updateNeeded();
 	  public String LATEST_VERSION_ID = Main.UPDATEALERT.getVersion();

@@ -46,9 +46,11 @@ public class Permission {
 	public static String ANTISPAM_IGNORE = "adminhelper.antispam.ignore";
 	public static String ANTISEVEN_IGNORE = "adminhelper.antiseven.ignore";
 	public static String ANTIADVERTISING_IGNORE = "adminhelper.advertising.ignore";
+	public static String ANTIBADWORD_IGNORE	= "adminhelper.antibadword.ignore";
 	
 	public static String ANTIADVERTISING_MESSAGE = "adminhelper.advertising.message";
-		
+	public static String ANTIBADWORD_MESSAGE = "adminhelper.antibadword.message";	
+	
 	public static String KICKALL_USE = "adminhelper.kickall";
 	public static String KICKALL_IGNORE = "adminhelper.kickall.ignore";
 		
